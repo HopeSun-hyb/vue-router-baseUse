@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <ul id="list">
+            <li>angular</li>
+            <li>react</li>
+            <li>vue</li>
+        </ul>
+        <div id="pannel"></div>
+    </div>
+    <script>
+        window.onload = function() {
+            // 监听全局popstate事件
+            window.onpopstate = function(event){
+                console.log("onpopstate-----",event);
+            }
+
+            // 监听hashchange 事件
+            window.onhashchange = function(event) {
+                console.log("onhashchange++++",event)
+            }
+
+            // 点击按钮时改变state
+            document.querySelector("#list").addEventListener('click', function(event){
+                if(event.target.nodeName == 'LI') {
+                    var content = event.target.innerHTML;
+                    var _newState;
+                    _newState = {
+                        url: location.origin + '/' + content,
+                        title: document.title, 
+                        state: content
+                    }
+
+                    // 调用replaceState方法跳转
+                    window.history.pushState(_newState, '','/'+ content)
+                    console.log("you have change the router to", content)
+
+                }
+            })
+        }
+    </script>
+</body>
+</html>
